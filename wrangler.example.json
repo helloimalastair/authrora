@@ -1,0 +1,45 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "authrora",
+	"main": "src/worker.ts",
+	"compatibility_date": "2024-12-14",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": false,
+	"route": {
+		"pattern": "https://authrora.your.domain/*",
+		"zone_id": "ZONE_ID"
+	},
+	"assets": {
+		"directory": ".svelte-kit/cloudflare",
+		"binding": "ASSETS",
+		"experimental_serve_directly": true
+	},
+	"kv_namespaces": [
+		{
+			"binding": "KV",
+			"id": "YOUR_KV_ID"
+		}
+	],
+	"triggers": {
+		"crons": ["*/5 * * * *", "0 0 * * *"]
+	},
+	"vars": {
+		"rpName": "Authrora",
+		"clients": {
+			"SOME_CLIENT_ID": {
+				"redirect_uris": [
+					"VALID_REDIRECT_URI"
+				],
+				"secret": "VALID_SECRET"
+			}
+		},
+		"expirations": {
+			"cookies": 604800000,
+			"sessions": 3600000,
+			"tokens": 300000,
+			"challenges": 300000,
+			"oidc": 300000,
+			"registrations": 300000
+		}
+	}
+}
